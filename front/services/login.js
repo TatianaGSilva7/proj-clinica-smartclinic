@@ -1,5 +1,5 @@
 export const login = async (user) => {
-  const response = await fetch("http://localhost:8080", {
+  const response = await fetch("http://localhost:8080/home", {
     method: "GET",
     headers: {
       "Content-Type": "application/json"//,
