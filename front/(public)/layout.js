@@ -1,10 +1,21 @@
-import { View, Text } from "react-native";
+import { View, Text, Button } from "react-native";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import { login } from "../services/login";
 
 function PublicLayout() {
-  return (
+  
+  useEffect(() => {
+
+    const handleLogin = async() =>{
+        const data = await login()
+        console.log("data", data)
+    }
+ 
+    handleLogin()
+  }, [])
+  
+    return (
     <SafeAreaProvider>
       <SafeAreaView style={{ flexDirection: "row" }}>
         <View style={{ height: 100, backgroundColor: "blue", flex: 0.2 }} />
