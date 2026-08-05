@@ -1,0 +1,13 @@
+export const login = async (user) => {
+  const response = await fetch("http://localhost:8080", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"//,
+      //Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data)
+  });
+
+  const data = await response()
+  return data
+};
