@@ -40,7 +40,7 @@ Checklist dos entregáveis previstos na Situação de Aprendizagem Desafiadora d
 Ensino. Marque conforme cada item for implementado pela squad — cada aula do curso avança
 alguns destes itens.
 
-- [x] Protótipo wireframe das interfaces da aplicação (Figma) https://www.figma.com/proto/HbbrWM4ddxCDhdV3XXfvzA/SmatrClinic---App-Design?node-id=0-1&t=ROwc7iyLfGkHKHum-1
+- [x] Protótipo wireframe das interfaces da aplicação (Figma) 
 - [x] Projeto do aplicativo configurado e versionado no Git 
 - [ ] Cadastro de foto de perfil (paciente e médico) via câmera do dispositivo 
 - [ ] Login com biometria implementado para médico/recepção 
