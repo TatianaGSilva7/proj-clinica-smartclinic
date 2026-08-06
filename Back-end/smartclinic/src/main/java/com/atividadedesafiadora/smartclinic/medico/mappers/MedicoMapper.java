@@ -1,4 +1,4 @@
-package com.atividadedesafiadora.smartclinic.medico.mapper;
+package com.atividadedesafiadora.smartclinic.medico.mappers;
 
 import com.atividadedesafiadora.smartclinic.medico.dtos.MedicoRequestDTO;
 import com.atividadedesafiadora.smartclinic.medico.dtos.MedicoResponseDTO;

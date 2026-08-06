@@ -1,10 +1,8 @@
-package com.atividadedesafiadora.smartclinic.horario;
+package com.atividadedesafiadora.smartclinic.horario.mappers;
 
 import com.atividadedesafiadora.smartclinic.horario.dtos.HorarioRequestDTO;
 import com.atividadedesafiadora.smartclinic.horario.dtos.HorarioResponseDTO;
 import com.atividadedesafiadora.smartclinic.horario.entities.Horario;
-import com.atividadedesafiadora.smartclinic.medico.dtos.MedicoResponseDTO;
-import com.atividadedesafiadora.smartclinic.medico.entities.Medico;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

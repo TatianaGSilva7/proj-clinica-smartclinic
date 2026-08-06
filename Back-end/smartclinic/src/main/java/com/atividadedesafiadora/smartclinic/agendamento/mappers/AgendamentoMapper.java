@@ -1,4 +1,4 @@
-package com.atividadedesafiadora.smartclinic.agendamento.mapper;
+package com.atividadedesafiadora.smartclinic.agendamento.mappers;
 
 import com.atividadedesafiadora.smartclinic.agendamento.dtos.AgendamentoRequestDTO;
 import com.atividadedesafiadora.smartclinic.agendamento.dtos.AgendamentoResponseDTO;
