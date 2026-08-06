@@ -1,17 +1,16 @@
 version: '3.8'
 
 services:
-  postgres:
-    image: postgres:15-alpine
-    container_name: smartclinic-db
-    environment:
-      POSTGRES_DB: smartclinic_db
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgrespassword
+  smartclinic-db:
+    image: mysql:8.0
+    container_name: smartclinic-mysql
     ports:
-      - "5432:5432"
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: smartclinic
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - mysql_data:/var/lib/mysql
 
 volumes:
-  pgdata:
+  mysql_data:
