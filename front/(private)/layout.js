@@ -3,6 +3,7 @@ import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import { useState, useEffect } from "react";
 import { login } from "../services/login";
 import { AuthContext } from "../context/authContext";
+import Login from "../(public)/login";
 
 function PrivateLayout() {
   useEffect(() => {
@@ -18,9 +19,7 @@ function PrivateLayout() {
     <AuthContext>
       <SafeAreaProvider>
         <SafeAreaView style={{ flexDirection: "row" }}>
-          <View style={{ height: 100, backgroundColor: "blue", flex: 0.2 }} />
-          <View style={{ height: 100, backgroundColor: "red", flex: 0.4 }} />
-          <Text>Hello World!</Text>
+          <Login />
         </SafeAreaView>
       </SafeAreaProvider>
     </AuthContext>
