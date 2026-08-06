@@ -5,17 +5,16 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Data
-public class AgendamentoResponseDTO {
-    private Long id;
-    private StatusAgendamento status;
-    private LocalDateTime dataCriacao;
-    private Long pacienteId;
-    private String nomePaciente;
-    private String cpfPaciente;
-    private Long horarioId;
-    private LocalDateTime dataHoraInicio;
-    private LocalDateTime dataHoraFim;
-    private String nomeMedico;
-    private String especialidadeMedico;
-}
+public record AgendamentoResponseDTO(
+        Long id,
+        StatusAgendamento status,
+        LocalDateTime dataCriacao,
+        Long pacienteId,
+        String nomePaciente,
+        String cpfPaciente,
+        Long horarioId,
+        LocalDateTime dataHoraInicio,
+        LocalDateTime dataHoraFim,
+        String nomeMedico,
+        String especialidadeMedico
+) {}

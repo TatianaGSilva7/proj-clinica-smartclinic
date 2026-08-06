@@ -1,10 +1,9 @@
-package com.atividadedesafiadora.smartclinic.medico.dtos;
+package com.atividadedesafiadora.smartclinic.paciente.dtos;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
 
-public record MedicoRequestDTO(
+public record PacienteRequestDTO(
         @NotBlank(message = "O nome é obrigatório")
         String nome,
 
@@ -15,9 +14,8 @@ public record MedicoRequestDTO(
         @NotBlank(message = "A senha é obrigatória")
         String senha,
 
-        @NotBlank(message = "O CRM é obrigatório")
-        String crm,
+        @NotBlank(message = "O CPF é obrigatório")
+        String cpf,
 
-        @NotBlank(message = "A especialidade é obrigatória")
-        String especialidade
+        String telefone
 ) {}

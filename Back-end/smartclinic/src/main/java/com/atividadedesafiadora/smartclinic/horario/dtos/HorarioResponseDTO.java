@@ -4,14 +4,4 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Data
-public class HorarioResponseDTO {
-
-    private Long id;
-    private LocalDateTime dataHoraInicio;
-    private LocalDateTime dataHoraFim;
-
-    private Long medicoId;
-    private String nomeMedico;
-    private String especialidadeMedico;
-}
+public record HorarioResponseDTO(Long id, LocalDateTime dataHoraInicio, LocalDateTime dataHoraFim, Long medicoId, String nomeMedico, String especialidadeMedico) {}
