@@ -1,6 +1,5 @@
-import { View, Text, Button } from "react-native";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
-import { useState, useEffect } from "react";
+import {useEffect } from "react";
 import { login } from "../services/login";
 import Login from "./login";
 

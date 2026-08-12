@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     color: "blue",
     fontSize: 20,
     fontWeight: "700",
-    fontFamily: 'Nunito_700Bold'
+  fontFamily: 'Nunito_700Bold',
   },
   subtitle: {
     fontSize: 13,
