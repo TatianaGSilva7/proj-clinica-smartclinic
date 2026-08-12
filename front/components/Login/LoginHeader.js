@@ -9,7 +9,7 @@ const LoginReader = () => {
       </View>
       <View>
         <Text style={styles.title}>SmartClinic</Text>
-        <View style={styles.subtitle}>Sua saúde, organizada em um só lugar.</View>
+        <Text style={styles.subtitle}>Sua saúde, organizada em um só lugar.</Text>
       </View>
     </View>
   );

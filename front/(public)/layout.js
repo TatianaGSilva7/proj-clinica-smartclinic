@@ -4,14 +4,14 @@ import { login } from "../services/login";
 import Login from "./login";
 
 function PublicLayout() {
-  useEffect(() => {
-    const handleLogin = async () => {
-      const data = await login();
-      console.log("data", data);
-    };
+  // useEffect(() => {
+  // //   const handleLogin = async () => {
+  // //     const data = await login();
+  // //     console.log("data", data);
+  // //   };
 
-    handleLogin();
-  }, []);
+  // //   handleLogin();
+  // // }, []);
 
   return (
     <SafeAreaProvider style={{ flex: 1 }}>

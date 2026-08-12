@@ -6,14 +6,6 @@ import LoginForm from "../components/Login/LoginForm";
 import LoginOptions from "../components/Login/LoginOptions";
 
 function Login() {
-  //   useEffect(() => {
-  //     const handleLogin = async () => {
-  //       const data = await login();
-  //       console.log("data", data);
-  //     };
-
-  //     handleLogin();
-  //   }, []);
 
   return (
     <SafeAreaProvider>

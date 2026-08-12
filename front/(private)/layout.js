@@ -4,14 +4,6 @@ import { login } from "../services/login";
 import Login from "../(public)/login";
 
 function PrivateLayout() {
-  useEffect(() => {
-    const handleLogin = async () => {
-      const data = await login();
-      console.log("data", data);
-    };
-
-    handleLogin();
-  }, []);
 
   return (
       <SafeAreaProvider>
