@@ -25,8 +25,4 @@ public class Medico {
     @NotBlank
     @Column(nullable = false)
     private String especialidade;
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, unique = true)
-    private User user;
 }
