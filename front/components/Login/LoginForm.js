@@ -1,5 +1,4 @@
-import { View, Text, Button, StyleSheet, TextInput } from "react-native";
-import { Heart, Star, Plus } from "lucide-react-native";
+import { View, Text, TouchableOpacity, StyleSheet, TextInput } from "react-native";
 
 const LoginForm = () => {
   return (
@@ -26,7 +25,9 @@ const LoginForm = () => {
             secureTextEntry
           />
         </View>
-        <Button title="Enviar" onPress={() => {}} style={styles.buttom} />
+        <TouchableOpacity style={styles.button} onPress={() => {}}>
+          <Text style={styles.buttonText}>Enviar</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -34,10 +35,7 @@ const LoginForm = () => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#f8f8f8",
     padding: 20,
-    gap: 6,
-    height: 400,
     justifyContent: "space-around",
   },
   title: {
@@ -74,7 +72,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
   },
   button: {
-    backgroundColor: "#000000",
+    backgroundColor: "#2563EB",
+    borderRadius: 8,
     height: 48,
     alignItems: "center",
     justifyContent: "center",

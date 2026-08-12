@@ -1,8 +1,22 @@
 import PublicLayout from './(public)/layout';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { useFonts, Nunito_400Regular, Nunito_500Medium, Nunito_600SemiBold, Nunito_700Bold } from '@expo-google-fonts/nunito';
+
 
 export default function App() {
+
+  const [fontsLoaded] = useFonts({
+    Nunito_400Regular,
+    Nunito_500Medium,
+    Nunito_600SemiBold,
+    Nunito_700Bold,
+  });
+
+   if (!fontsLoaded) {
+    return null; 
+  }
+
   return (
     <View style={styles.container}>
       <PublicLayout />

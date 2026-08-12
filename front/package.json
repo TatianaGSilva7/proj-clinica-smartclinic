@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
+    "@expo-google-fonts/nunito": "^0.4.2",
     "expo": "~57.0.10",
+    "expo-font": "~57.0.1",
     "expo-status-bar": "~57.0.1",
     "lucide-react-native": "^1.28.0",
     "react": "19.2.3",
