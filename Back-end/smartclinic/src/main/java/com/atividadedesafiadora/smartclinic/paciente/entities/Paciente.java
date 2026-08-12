@@ -23,8 +23,4 @@ public class Paciente {
     private String cpf;
 
     private String telefone;
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, unique = true)
-    private User user;
 }
