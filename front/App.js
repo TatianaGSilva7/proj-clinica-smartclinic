@@ -32,7 +32,7 @@ function Main() {
   });
 
   if (!fontsLoaded) {
-    return console.log("NÂO FOI");
+    return null;
   }
 
   return (
