@@ -12,7 +12,7 @@ implementada. Não deixe nenhum "[a preencher]" na versão final (Aula 16).
 
 > Projeto integrador da Unidade Curricular **Aplicações Mobile**, construído ao longo de 16 aulas.
 
-**Squad:** Henrique Linhares Pinheiro Loiola / Tatiana das Graças Silva / Victor Lemos Barbosa
+**Squad:** Henrique Linhares Pinheiro Loiola / Kaique dos Santos Silva / Tatiana das Graças Silva / Victor Lemos Barbosa
           
 **Curso:** Superior de Tecnologia em Análise e Desenvolvimento de Sistemas — Turma STADS
 **Professor:** Prof. Dr. Maurício Falvo
