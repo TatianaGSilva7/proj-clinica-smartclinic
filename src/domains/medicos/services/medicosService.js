@@ -7,3 +7,13 @@ export async function buscarMedicos() {
   }
   return await resposta.json();
 }
+
+ const excluirMedico = async (id) => {
+    const resposta = await fetch(`${BASE_URL}/medicos/${id}`, {
+      method: 'DELETE',
+    });
+
+    if (!resposta.ok) {
+      throw new Error(`Erro HTTP ${resposta.status} ao excluir`);
+    }
+  }
