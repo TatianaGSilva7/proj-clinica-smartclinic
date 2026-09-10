@@ -165,3 +165,8 @@ commit, revisão em pares) para saber como contribuir com este repositório.
 ## Licença
 
 [a definir pela squad, se aplicável]
+
+
+## Endpoint BASE_URL
+
+Foi decidido internamento que o json-server irá rodar na porta 3000 e a API irá rodar na porta 3001, dessa forma foi colocado o AUTH_BASE_URL como porta 3001
