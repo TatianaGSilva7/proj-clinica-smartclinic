@@ -21,7 +21,7 @@ export async function atualizarMedico(id, dados) {
 
   return await resposta.json();
 }
-export async function excluirMedico() {
+export async function excluirMedico(id) {
   const resposta = await fetch(`${BASE_URL}/medicos/${id}`, {
     method: 'DELETE',
   });
