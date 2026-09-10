@@ -20,6 +20,12 @@
       "especialidade": "Neurologista",
       "crm": "56789/BAccc",
       "id": "5"
+    },
+    {
+      "nome": "Henrique",
+      "especialidade": "Cardiologista",
+      "crm": "123",
+      "id": "6fumREs_BcE"
     }
   ],
   "pacientes": [
@@ -115,5 +121,6 @@
       "horaInicio": "13:00",
       "horaFim": "17:00"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

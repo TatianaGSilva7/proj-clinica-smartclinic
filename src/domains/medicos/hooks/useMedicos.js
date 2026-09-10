@@ -5,7 +5,7 @@ import {
   criarMedico,
   atualizarMedico,
   excluirMedico,
-} from '../api/medicosApi';
+} from '../services/medicosService.js';
 
 // Estado inicial do formulário (também usado para "limpar" depois de salvar).
 const formVazio = { nome: '', especialidade: '', crm: '' };
@@ -75,6 +75,36 @@ export function useMedicos() {
     }
   };
 
+
+  const editar = (medico) => {
+    setFormulario(medico);
+    setEditandoId(medico.id);
+    setMensagem(null);
+  };
+
+  const cancelarEdicao = () => {
+    setFormulario(formVazio);
+    setEditandoId(null);
+    setMensagem(null);
+  };
+
+  const confirmarExclusao = (id) => {
+    Alert.alert('Excluir', 'Tem certeza que deseja excluir?', [
+      { text: 'Cancelar', style: 'cancel' },
+      {
+        text: 'Excluir',
+        style: 'destructive',
+        onPress: async () => {
+          try {
+            await excluirMedico(id);
+            await buscarMedicos();
+          } catch (e) {
+            Alert.alert('Erro', e.message);
+          }
+        },
+      },
+    ]);
+  };
 
   return {
     medicos,
