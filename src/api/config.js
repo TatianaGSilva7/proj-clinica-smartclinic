@@ -1,4 +1,3 @@
-import { obterToken, limparToken } from "./authStorage";
 import { obterToken, limparToken } from './token';
 
 
@@ -11,7 +10,6 @@ export const BASE_URL = 'http://10.110.12.70:3000';
 export const AUTH_BASE_URL = 'http://10.110.12.70:3001';
 // api/config.js
 
-const BASE_URL = "http://localhost:3001"; // decisão do squad: API nova (porta 3001) — ver README
 
 export class SessaoExpirada extends Error {
     constructor(mensagem = "Sessão expirada") {
