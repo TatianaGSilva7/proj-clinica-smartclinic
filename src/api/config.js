@@ -1,4 +1,6 @@
 import { obterToken, limparToken } from "./authStorage";
+import { obterToken, limparToken } from './token';
+
 
 // Em emulador/navegador na própria máquina, 'localhost' funciona.
 // Em dispositivo físico (Expo Go), 'localhost' é o próprio celular: troque
@@ -19,7 +21,7 @@ export class SessaoExpirada extends Error {
 }
 
 export async function requisicao(caminho, opcoes = {}) {
-    const token = obterToken();
+    const token = await obterToken();
     const temCorpo = opcoes.body !== undefined;
 
     const headers = {
