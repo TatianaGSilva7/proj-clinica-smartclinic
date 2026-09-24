@@ -1,10 +1,12 @@
 import React from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { loginStyles as styles } from '../styles/loginStyles';
 import { useLogin } from '../hooks/useLogin';
 
-export function LoginScreen({ onLoginSuccess }) {
-  const { email, setEmail, senha, setSenha, entrando, erro, entrar } = useLogin(onLoginSuccess);
+export function LoginScreen({ navigation }) {
+  // reset em vez de navigate: o Login sai da pilha e o gesto de voltar não retorna a ele.
+  const irParaHome = () => navigation.reset({ index: 0, routes: [{ name: 'Medicos' }] });
+  const { email, setEmail, senha, setSenha, entrando, erro, entrar } = useLogin(irParaHome);
 
   return (
     <View style={styles.container}>
@@ -29,7 +31,13 @@ export function LoginScreen({ onLoginSuccess }) {
 
       {erro && <Text style={styles.textoErro}>{erro}</Text>}
 
-      <Button title={entrando ? 'Entrando...' : 'Entrar'} onPress={entrar} disabled={entrando} />
+      <TouchableOpacity
+        style={[styles.botao, entrando && styles.botaoDesabilitado]}
+        onPress={entrar}
+        disabled={entrando}
+      >
+        <Text style={styles.textoBotao}>{entrando ? 'Entrando...' : 'Entrar'}</Text>
+      </TouchableOpacity>
     </View>
   );
 }

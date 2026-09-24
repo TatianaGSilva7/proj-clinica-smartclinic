@@ -5,7 +5,6 @@ import {
   TextInput,
   FlatList,
   ActivityIndicator,
-  Button,
   TouchableOpacity,
 } from 'react-native';
 import { medicosStyles as styles } from '../styles/medicosStyles';
@@ -42,7 +41,12 @@ export function MedicosScreen() {
       <View style={styles.centro}>
         <Text style={styles.textoErro}>Não foi possível carregar os médicos.</Text>
         <Text style={styles.texto}>{erro}</Text>
-        <Button title="Tentar novamente" onPress={buscarMedicos} />
+        <TouchableOpacity
+          style={[styles.botao, styles.botaoTentarNovamente]}
+          onPress={buscarMedicos}
+        >
+          <Text style={styles.textoBotao}>Tentar novamente</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -50,7 +54,7 @@ export function MedicosScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.titulo}>
-        {editandoId === null ? 'Novo médico (POST)' : `Editando médico #${editandoId} (PUT)`}
+        {editandoId === null ? 'Novo médico' : 'Editar médico'}
       </Text>
 
       <TextInput
@@ -73,17 +77,20 @@ export function MedicosScreen() {
       />
 
       <View style={styles.linhaBotoes}>
-        <View style={styles.botao}>
-          <Button
-            title={salvando ? 'Salvando...' : 'Salvar'}
-            onPress={salvar}
-            disabled={salvando}
-          />
-        </View>
+        <TouchableOpacity
+          style={[styles.botao, salvando && styles.botaoDesabilitado]}
+          onPress={salvar}
+          disabled={salvando}
+        >
+          <Text style={styles.textoBotao}>{salvando ? 'Salvando...' : 'Salvar'}</Text>
+        </TouchableOpacity>
         {editandoId !== null && (
-          <View style={styles.botao}>
-            <Button title="Cancelar" color="#6c757d" onPress={cancelarEdicao} />
-          </View>
+          <TouchableOpacity
+            style={[styles.botao, styles.botaoSecundario]}
+            onPress={cancelarEdicao}
+          >
+            <Text style={styles.textoBotao}>Cancelar</Text>
+          </TouchableOpacity>
         )}
       </View>
 
@@ -104,7 +111,7 @@ export function MedicosScreen() {
               <TouchableOpacity onPress={() => editar(item)}>
                 <Text style={styles.acao}>Editar</Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => confirmarExclusao(item)}>
+              <TouchableOpacity onPress={() => confirmarExclusao(item.id)}>
                 <Text style={[styles.acao, styles.acaoExcluir]}>Excluir</Text>
               </TouchableOpacity>
             </View>

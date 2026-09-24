@@ -1,47 +1,21 @@
-import { BASE_URL } from "../../../api/config";
+import { get, post, put, remover } from "../../../api/http";
 
 export async function buscarMedicos() {
-  const resposta = await fetch(`${BASE_URL}/medicos`);
-  if (!resposta.ok) {
-    throw new Error(`Erro HTTP ${resposta.status}`);
-  }
-  return await resposta.json();
+  return get('/medicos');
+}
+
+export async function buscarMedicoPorId(id) {
+  return get(`/medicos/${id}`);
 }
 
 export async function atualizarMedico(id, dados) {
-  const resposta = await fetch(`${BASE_URL}/medicos/${id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(dados),
-  });
-
-  if (!resposta.ok) {
-    throw new Error(`Erro HTTP ${resposta.status} ao atualizar`);
-  }
-
-  return await resposta.json();
+  return put(`/medicos/${id}`, dados);
 }
-export async function excluirMedico() {
-  const resposta = await fetch(`${BASE_URL}/medicos/${id}`, {
-    method: 'DELETE',
-  });
 
-  if (!resposta.ok) {
-    throw new Error(`Erro HTTP ${resposta.status} ao excluir`);
-  }
+export async function excluirMedico(id) {
+  return remover(`/medicos/${id}`);
 }
 
 export async function criarMedico(dados) {
-  const resposta = await fetch(`${BASE_URL}/medicos`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(dados),
-  });
-
-  if (!resposta.ok) {
-    throw new Error(`Erro HTTP ${resposta.status} ao cadastrar`);
-  }
-
-  return await resposta.json();
-};
-
+  return post('/medicos', dados);
+}

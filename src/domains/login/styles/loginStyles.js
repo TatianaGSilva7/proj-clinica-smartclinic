@@ -16,4 +16,20 @@ export const loginStyles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 12,
   },
+  botao: {
+    backgroundColor: '#007AFF',
+    borderRadius: 8,
+    paddingVertical: 12,
+    alignItems: 'center',
+  },
+  botaoDesabilitado: { opacity: 0.6 },
+  textoBotao: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
+  botaoSair: {
+    marginRight: 12,
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 6,
+    backgroundColor: '#c0392b',
+  },
+  textoBotaoSair: { color: '#fff', fontWeight: 'bold' },
 });
