@@ -54,7 +54,7 @@ export function MedicosScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.titulo}>
-        {editandoId === null ? 'Novo médico (POST)' : `Editando médico #${editandoId} (PUT)`}
+        {editandoId === null ? 'Novo médico' : 'Editar médico'}
       </Text>
 
       <TextInput
