@@ -1,4 +1,4 @@
-import { get, post, put, remover } from "../../../api/config";
+import { get, post, put, remover } from "../../../api/http";
 
 export async function buscarMedicos() {
   return get('/medicos');

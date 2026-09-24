@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 export const medicosStyles = StyleSheet.create({
-  container: { flex: 1, paddingTop: 60, paddingHorizontal: 16, backgroundColor: '#fff' },
+  container: { flex: 1, paddingTop: 16, paddingHorizontal: 16, backgroundColor: '#fff' },
   centro: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 },
   titulo: { fontSize: 20, fontWeight: 'bold', marginBottom: 12 },
   subtitulo: { fontSize: 16, fontWeight: 'bold', marginTop: 20, marginBottom: 8 },
@@ -17,7 +17,18 @@ export const medicosStyles = StyleSheet.create({
     backgroundColor: '#f9f9f9',
   },
   linhaBotoes: { flexDirection: 'row', gap: 12, marginTop: 8 },
-  botao: { flex: 1 },
+  botao: {
+    flex: 1,
+    backgroundColor: '#007AFF',
+    borderRadius: 8,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    alignItems: 'center',
+  },
+  botaoSecundario: { backgroundColor: '#6c757d' },
+  botaoDesabilitado: { opacity: 0.6 },
+  botaoTentarNovamente: { flex: 0, marginTop: 16 },
+  textoBotao: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
   card: {
     backgroundColor: '#f5f5f5',
     borderRadius: 8,
