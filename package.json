@@ -7,15 +7,21 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "mock-api": "npx json-server --watch mockup/db.json --port 3000"
+    "mock-api": "npx json-server --watch mockup/db.json --port 3000",
+    "auth-api": "node servidor/auth-api.js"
   },
   "dependencies": {
+    "@react-navigation/native": "^7.4.1",
+    "@react-navigation/stack": "^7.11.2",
     "expo": "~57.0.21",
     "expo-font": "~57.0.3",
     "expo-secure-store": "~57.0.3",
     "expo-status-bar": "~57.0.1",
     "react": "19.2.3",
-    "react-native": "0.86.3"
+    "react-native": "0.86.3",
+    "react-native-gesture-handler": "~2.32.0",
+    "react-native-safe-area-context": "~5.7.0",
+    "react-native-screens": "~4.26.0"
   },
   "private": true
 }

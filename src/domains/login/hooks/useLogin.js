@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Alert } from 'react-native';
 import { login } from '../services/authService';
-import { salvarToken } from '../../../api/token';
 
 export function useLogin(onLoginSuccess) {
   const [email, setEmail] = useState('');
@@ -18,8 +17,7 @@ export function useLogin(onLoginSuccess) {
     setEntrando(true);
     setErro(null);
     try {
-      const { token } = await login(email.trim(), senha);
-      await salvarToken(token);
+      await login(email.trim(), senha);
       setSenha('');
       onLoginSuccess?.();
     } catch (e) {

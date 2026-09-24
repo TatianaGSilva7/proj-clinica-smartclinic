@@ -1,5 +1,3 @@
-# proj-clinica-smartclinic
-Atividade desafiadora - Aplicações Mobile
 <!--
 TEMPLATE — cada squad deve copiar este arquivo para a RAIZ do próprio
 repositório do projeto (o app da clínica) e ir preenchendo os campos entre
@@ -50,7 +48,8 @@ alguns destes itens.
       especialidades e horários, consumindo a API RESTful
 - [ ] Operações de escrita (cadastro/edição/exclusão) para pacientes, médicos,
       especialidades e horários 
-- [ ] Integração inicial com os endpoints de usuários e login, via HTTPS
+- [x] Integração inicial com os endpoints de usuários e login, via HTTPS
+      (mock local em HTTP — ver [Segurança da comunicação](#segurança-da-comunicação-http--https))
 - [ ] Identificação dos recursos que dependem de Web Services de terceiros
 - [ ] Notificação local/push como lembrete de consulta agendada
 - [ ] Processamento multithread para tarefas pesadas não travarem a interface
@@ -73,20 +72,24 @@ alguns destes itens.
 
 | Tela | Funcionalidade | Navega para |
 |---|---|---|
-| Splash | [a preencher] | Menu |
-| Menu | [a preencher] | Médicos, Pacientes, Consultas |
-| Médicos (listagem) | [a preencher] | Cadastro/Edição de Médico |
-| Cadastro/Edição de Médico | [a preencher] | — |
+| Login | E-mail e senha; envia `POST /login` e guarda o token no armazenamento seguro. Tela inicial quando não há sessão. | Médicos |
+| Médicos | Listagem de médicos e formulário de cadastro/edição/exclusão (CRUD). Botão **Sair** no cabeçalho. Tela inicial quando já há sessão. | Login (ao sair ou quando a sessão expira) |
+| Splash *(planejada)* | [a preencher] | Menu |
+| Menu *(planejada)* | [a preencher] | Médicos, Pacientes, Consultas |
 | [adicionar novas telas conforme implementadas] | | |
 
 ## Tecnologias
 
 - [React Native](https://reactnative.dev/) com [Expo](https://expo.dev/)
-- React Navigation (`@react-navigation/native`, `@react-navigation/stack`)
+- React Navigation (`@react-navigation/native`, `@react-navigation/stack`), com
+  `react-native-screens`, `react-native-safe-area-context` e `react-native-gesture-handler`
+- `expo-secure-store` — armazenamento seguro do token de sessão (Keychain no iOS,
+  Keystore no Android)
 - [a preencher: bibliotecas adicionadas a cada aula — expo-camera/expo-image-picker,
   expo-local-authentication, expo-location, expo-notifications, expo-task-manager,
   react-native-maps, etc.]
-- API RESTful da clínica (mock local via `json-server` durante o desenvolvimento)
+- API RESTful da clínica (mock local via `json-server` durante o desenvolvimento) e API
+  de autenticação mock (`servidor/auth-api.js`, Node puro, sem dependências)
 
 ## Pré-requisitos
 
@@ -94,6 +97,11 @@ alguns destes itens.
 - npm
 - [Expo Go](https://expo.dev/go) instalado no celular físico, **ou** um emulador
   Android/iOS configurado
+- Conta Expo (gratuita, em [expo.dev/signup](https://expo.dev/signup)) — o Expo Go exige
+  login no computador e no celular com a mesma conta
+- Celular e computador na **mesma rede**. Redes que isolam os aparelhos (comum em
+  faculdades e empresas) impedem a conexão; nesse caso, use o roteamento de internet do
+  celular
 - Git
 
 ## Instalação e configuração
@@ -106,22 +114,37 @@ npm install
 
 ### Variáveis de configuração
 
-O endereço da API é definido em `[caminho do arquivo, ex.: src/services/api.js]`:
+Os endereços das APIs são definidos em `src/api/config.js`:
 
 ```js
-const BASE_URL = "[http://SEU_IP_AQUI:3000]";
+export const BASE_URL = 'http://SEU_IP_AQUI:3000';      // json-server (CRUD)
+export const AUTH_BASE_URL = 'http://SEU_IP_AQUI:3001'; // auth-api (login)
 ```
+
+Foi decidido pela squad que o json-server roda na porta **3000** e a API de autenticação
+na porta **3001**, para os dois poderem ficar no ar ao mesmo tempo. O login usa o
+`AUTH_BASE_URL`; as demais requisições (via `src/api/http.js`) usam o `BASE_URL`.
 
 > Em dispositivo físico (Expo Go), `localhost` não funciona — use o IP da máquina que
-> está rodando a API/mock, na mesma rede Wi-Fi.
+> está rodando a API/mock, na mesma rede Wi-Fi (`ipconfig` no Windows). Cada integrante
+> deve ajustar o IP para a própria máquina.
 
-### Subindo a API mock (durante o desenvolvimento)
+### Subindo as APIs (durante o desenvolvimento)
+
+Cada comando em um terminal separado, mantidos abertos enquanto o app estiver em uso:
 
 ```bash
-npx json-server --watch db_clinica.json --port 3000
+npm run mock-api   # json-server com mockup/db.json, porta 3000
+npm run auth-api   # API de autenticação (servidor/auth-api.js), porta 3001
 ```
 
+Usuários de teste da API de autenticação: `recepcao@clinica.com` / `clinica123` e
+`joao@clinica.com` / `medico123`. Os tokens ficam em memória: reiniciar o `auth-api`
+encerra todas as sessões.
+
 ## Como executar
+
+Com as duas APIs no ar, em um terceiro terminal:
 
 ```bash
 npx expo start
@@ -129,6 +152,73 @@ npx expo start
 
 Escaneie o QR Code com o app Expo Go, ou pressione `a`/`i` no terminal para abrir em um
 emulador Android/iOS.
+
+> O Expo Go exige login: rode `npx expo login` no computador e entre com a **mesma conta**
+> no app Expo Go do celular.
+>
+> Não use o navegador (`w`): o `expo-secure-store`, que guarda o token, não funciona na web.
+
+## Autenticação e sessão
+
+O app só mostra dados para quem fez login. A senha é enviada **uma única vez**; em troca,
+a API devolve um **token**, e é ele que acompanha as requisições seguintes.
+
+### Onde fica cada peça
+
+```
+src/api/                          ← infraestrutura compartilhada (não conhece nenhum domínio)
+├── config.js    → BASE_URL (3000) e AUTH_BASE_URL (3001)
+├── sessao.js    → único acesso ao cofre: salvarToken, obterToken, limparToken, estaLogado
+└── http.js      → único ponto que fala com a rede: requisicao(), get/post/put/remover,
+                   SessaoExpirada
+
+src/domains/login/                ← regra de negócio da autenticação
+├── services/authService.js       → login() (POST /login + salva o token) e logout()
+├── hooks/useLogin.js             → estado da tela de login
+├── hooks/useEncerrarSessao.js    → apaga o token e volta ao Login (com aviso opcional)
+├── components/BotaoSair.js       → botão Sair do cabeçalho
+└── screens/LoginScreen.js
+```
+
+Os domínios dependem de `src/api/`, nunca o contrário.
+
+### Fluxo
+
+1. **Abertura do app:** `App.js` consulta `estaLogado()`. Enquanto verifica, mostra um
+   carregando; depois abre em **Médicos** (há token) ou em **Login** (não há).
+2. **Login:** `login()` envia e-mail e senha, recebe o token e o grava no cofre
+   (`expo-secure-store`). A senha é apagada do estado. Credencial errada (401) mostra
+   "E-mail ou senha inválidos", sem dizer qual campo errou.
+3. **Requisições:** `http.js` lê o token e envia `Authorization: Bearer <token>` em todas
+   as chamadas.
+4. **Sessão expirada:** se a API responder 401, `http.js` apaga o token e lança
+   `SessaoExpirada`; a tela chama `useEncerrarSessao` e o usuário volta ao Login com o
+   aviso "Sessão expirada".
+5. **Sair:** apaga o token do cofre **e** volta ao Login. Só navegar deixaria a sessão
+   viva no aparelho.
+
+A navegação para o Login usa `navigation.reset`, para o gesto de voltar não retornar à
+tela anterior.
+
+### Ao criar um novo domínio (pacientes, consultas...)
+
+- Faça as chamadas com `get`/`post`/`put`/`remover` de `src/api/http.js` — nada de
+  `fetch` direto nem `BASE_URL` nas telas.
+- Nos `catch`, trate `SessaoExpirada` com `useEncerrarSessao('Sessão expirada')` antes
+  de tratar como erro genérico (veja `src/domains/medicos/hooks/useMedicos.js`).
+- Nunca use `console.log` com token, senha ou dados de paciente.
+
+## Segurança da comunicação (HTTP × HTTPS)
+
+Durante o desenvolvimento, o json-server e o auth-api rodam em **HTTP** porque o tráfego
+não sai da rede local — é uma decisão consciente de laboratório, não descuido. Em HTTP,
+tudo o que o app envia (e-mail, senha, token) trafega em texto puro e pode ser lido por
+qualquer um no caminho da rede.
+
+A API real da clínica **exigirá HTTPS**, por lidar com credenciais e dados de pacientes.
+No app, basta trocar `http://` por `https://` em `src/api/config.js`; o restante é
+responsabilidade do servidor (certificado válido, domínio e renovação). iOS e Android já
+bloqueiam HTTP puro em apps de produção, e essa liberação não deve ir para as lojas.
 
 ## Permissões necessárias
 
@@ -165,8 +255,3 @@ commit, revisão em pares) para saber como contribuir com este repositório.
 ## Licença
 
 [a definir pela squad, se aplicável]
-
-
-## Endpoint BASE_URL
-
-Foi decidido internamento que o json-server irá rodar na porta 3000 e a API irá rodar na porta 3001, dessa forma foi colocado o AUTH_BASE_URL como porta 3001
