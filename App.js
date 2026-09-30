@@ -7,6 +7,7 @@ import { medicosStyles as styles } from './src/domains/medicos/styles/medicosSty
 import { MedicosScreen } from './src/domains/medicos/screens/MedicosScreen';
 import { LoginScreen } from './src/domains/login/screens/LoginScreen';
 import { BotaoSair } from './src/domains/login/components/BotaoSair';
+import { Home } from './src/domains/home/screen/Home';
 
 const Stack = createStackNavigator();
 
@@ -29,13 +30,21 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={logado ? 'Medicos' : 'Login'}>
-        <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
-        <Stack.Screen
-          name="Medicos"
-          component={MedicosScreen}
-          options={{ title: 'Médicos', headerRight: () => <BotaoSair /> }}
-        />
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        {logado ? (
+          <>
+            <Stack.Screen name="Home">
+              {(props) => <Home {...props} onSair={() => setLogado(false)} />}
+            </Stack.Screen>
+          </>
+        ) : (
+          <Stack.Screen name="Login">
+            {(props) =>  <Home {...props} onSair={() => setLogado(false)} />}
+          </Stack.Screen>
+          // <Stack.Screen name="Login">
+          //   {(props) => <LoginScreen {...props} onLogin={() => setLogado(true)} />}
+          // </Stack.Screen>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );
