@@ -35,7 +35,7 @@ const ESPECIALIDADES = [
 ];
 
 export function Especialidades({ onVerTodas, onSelecionar }) {
-    const { medicos, carregando } = useMedicos();
+    const { medicos } = useMedicos();
     const [especialidade, setEspecialidade] = useState(null);
     const medicosFiltrados = useMemo(() => {
         if (!especialidade) return medicos;
@@ -69,8 +69,12 @@ export function Especialidades({ onVerTodas, onSelecionar }) {
                     );
                 })}
             </View>
-            {especialidade && <MedicosListagem medicos={medicosFiltrados} />}
-        </View>
+            <MedicosListagem
+                visivel={especialidade !== null}
+                onFechar={() => setEspecialidade(null)}
+                medicos={medicosFiltrados}
+            />        
+            </View>
     );
 }
 
