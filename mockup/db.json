@@ -1,4 +1,24 @@
 {
+  "consultas": [
+    {
+      "id": "1",
+      "medicoId": "4",
+      "dataHora": "2026-05-20T09:15:00",
+      "status": "Concluída"
+    },
+    {
+      "id": "2",
+      "medicoId": "5",
+      "dataHora": "2026-08-10T14:00:00",
+      "status": "Confirmada"
+    },
+    {
+      "id": "3",
+      "medicoId": "6",
+      "dataHora": "2026-10-12T10:30:00",
+      "status": "Confirmada"
+    }
+  ],
   "medicos": [
     {
       "id": "4",
