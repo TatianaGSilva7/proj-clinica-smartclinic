@@ -5,9 +5,12 @@ import { AcoesRapias } from "../components/AcoesRapidas";
 import { ProximaConsulta } from "../components/ProximaConsulta";
 import { ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useConsultas } from "../../consultas/hooks/useConsultas";
 
 
 export function Home() {
+
+    const { consultas } = useConsultas()
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }} edges={["top", "left", "right"]}>

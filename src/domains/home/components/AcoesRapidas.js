@@ -16,7 +16,6 @@ export function AcoesRapias({
 }) {
 
     const actions = [
-        { key: "schedule", label: "Agendar\nconsulta", Icon: CalendarDays, onPress: onSchedule },
         { key: "exams", label: "Meus\nexames", Icon: FileCheck, onPress: onExams },
         { key: "units", label: "Unidades\npróximas", Icon: MapPin, onPress: onUnits },
         { key: "chat", label: "Falar com a\nclínica", Icon: MessagesSquare, onPress: onChat },

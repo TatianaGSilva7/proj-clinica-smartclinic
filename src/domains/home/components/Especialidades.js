@@ -28,18 +28,22 @@ function Stomach({ size = 24, color = "#111111", strokeWidth = 2 }) {
 }
 
 const ESPECIALIDADES = [
-    { key: "cardio", label: "Cardiologia", valor: "Neurologista", Icon: HeartPulse },
-    { key: "neuro", label: "Neurologia", valor: "Neurologia", Icon: Brain },
-    { key: "gastro", label: "Gastro.", valor: "Gastroenterologia", Icon: Stomach },
+    { key: "cardio", label: "Cardiologia", valor: "Cardiologista", Icon: HeartPulse },
+    { key: "neuro", label: "Neurologia", valor: "Neurologista", Icon: Brain },
+    { key: "gastro", label: "Gastro.", valor: "Gastroenterologista", Icon: Stomach },
     { key: "clinico", label: "Clínico\nGeral", valor: "Clínico Geral", Icon: ShieldPlus },
 ];
+
+const normalizar = (texto = "") =>
+    texto.normalize("NFD").replace(/[̀-ͯ]/g, "").trim().toLowerCase();
 
 export function Especialidades({ onVerTodas, onSelecionar }) {
     const { medicos } = useMedicos();
     const [especialidade, setEspecialidade] = useState(null);
     const medicosFiltrados = useMemo(() => {
         if (!especialidade) return medicos;
-        return medicos.filter((med) => med.especialidade === especialidade);
+        const alvo = normalizar(especialidade);
+        return medicos.filter((med) => normalizar(med.especialidade) === alvo);
     }, [medicos, especialidade]);
 
     const selecionar = (valor) => {
@@ -51,6 +55,7 @@ export function Especialidades({ onVerTodas, onSelecionar }) {
 
     return (
         <View style={styles.container}>
+            <Text style={styles.title}>Agendar Consultas</Text>
             <View style={styles.row}>
                 {ESPECIALIDADES.map(({ key, label, valor, Icon }) => {
                     const ativo = especialidade === valor;
@@ -73,8 +78,8 @@ export function Especialidades({ onVerTodas, onSelecionar }) {
                 visivel={especialidade !== null}
                 onFechar={() => setEspecialidade(null)}
                 medicos={medicosFiltrados}
-            />        
-            </View>
+            />
+        </View>
     );
 }
 
@@ -83,6 +88,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         paddingVertical: 14,
         backgroundColor: "#FFFFFF",
+        gap: 20
     },
     header: {
         flexDirection: "row",
