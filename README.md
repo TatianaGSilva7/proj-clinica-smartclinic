@@ -156,6 +156,8 @@ encerra todas as sessões.
 
 ## Como executar
 
+> **Aviso sobre Bluetooth:** O modo real do `react-native-ble-plx` NÃO funciona no Expo Go (precisa de código nativo). O modo real exige development build (`npx expo run:android` ou EAS Build). Por padrão o app roda em MODO_SIMULADO, que funciona perfeitamente no Expo Go.
+
 Com as duas APIs no ar, em um terceiro terminal:
 
 ```bash

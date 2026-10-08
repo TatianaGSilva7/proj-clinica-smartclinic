@@ -9,7 +9,7 @@ import { useConsultas } from "../../consultas/hooks/useConsultas";
 import { UnidadesProximas } from "../../clinica/components/UnidadesProximas";
 
 
-export function Home() {
+export function Home({ navigation }) {
 
     const { consultas } = useConsultas()
     const [verUnidades, setVerUnidades] = useState(false);
@@ -23,6 +23,8 @@ export function Home() {
             >
                 <ProximaConsulta />
                 <AcoesRapias onUnits={() => setVerUnidades(true)} />
+                <ProximaConsulta onDetalhes={() => navigation.navigate('Consulta')} />
+                <AcoesRapias />
                 <Especialidades />
             </ScrollView>
             <UnidadesProximas visivel={verUnidades} onFechar={() => setVerUnidades(false)} />
