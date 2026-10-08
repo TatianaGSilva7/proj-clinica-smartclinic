@@ -25,6 +25,23 @@ export default function App() {
           component={MedicosScreen}
           options={{ headerShown: true, title: 'Médicos', headerRight: () => <BotaoSair /> }}
         />
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        {logado ? (
+          <>
+            <Stack.Screen name="Home">
+              {(props) => <Home {...props} onSair={() => setLogado(false)} />}
+            </Stack.Screen>
+            <Stack.Screen name="Consulta" component={require('./src/domains/consultas/screen/ConsultaScreen').ConsultaScreen} />
+            <Stack.Screen name="SinaisVitais" component={require('./src/domains/consultas/screen/SinaisVitais').SinaisVitaisScreen} />
+          </>
+        ) : (
+          <Stack.Screen name="Login">
+            {(props) =>  <Home {...props} onSair={() => setLogado(false)} />}
+          </Stack.Screen>
+          // <Stack.Screen name="Login">
+          //   {(props) => <LoginScreen {...props} onLogin={() => setLogado(true)} />}
+          // </Stack.Screen>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

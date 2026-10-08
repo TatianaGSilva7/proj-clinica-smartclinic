@@ -13,6 +13,7 @@
   "dependencies": {
     "@react-navigation/native": "^7.4.1",
     "@react-navigation/stack": "^7.11.2",
+    "buffer": "^6.0.3",
     "expo": "~57.0.21",
     "expo-font": "~57.0.3",
     "expo-image-picker": "~57.0.20",
@@ -23,6 +24,7 @@
     "lucide-react-native": "^1.47.0",
     "react": "19.2.3",
     "react-native": "0.86.3",
+    "react-native-ble-plx": "^3.5.1",
     "react-native-gesture-handler": "~2.32.0",
     "react-native-safe-area-context": "~5.7.0",
     "react-native-screens": "~4.26.0",
