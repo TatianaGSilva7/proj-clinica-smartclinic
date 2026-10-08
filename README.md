@@ -41,7 +41,7 @@ alguns destes itens.
 - [x] Protótipo wireframe das interfaces da aplicação (Figma) 
 - [x] Projeto do aplicativo configurado e versionado no Git 
 - [ ] Cadastro de foto de perfil (paciente e médico) via câmera do dispositivo 
-- [ ] Login com biometria implementado para médico/recepção 
+- [x] Login com biometria implementado para médico/recepção 
 - [ ] Geolocalização (GPS) com cálculo de distância/tempo até a clínica 
 - [ ] Importação de sinais vitais de um periférico via Bluetooth antes da consulta
 - [ ] Implementação das interfaces de listagem (leitura) para pacientes, médicos,
@@ -72,7 +72,8 @@ alguns destes itens.
 
 | Tela | Funcionalidade | Navega para |
 |---|---|---|
-| Login | E-mail e senha; envia `POST /login` e guarda o token no armazenamento seguro. Tela inicial quando não há sessão. | Médicos |
+| Login biométrico | Tela inicial do app. Confere sensor, biometria cadastrada e token no cofre; com os três, libera a sessão salva pela digital. A biometria não autentica na API: só destranca o token já guardado. Link **Entrar com e-mail e senha** sempre visível. | Home (digital confirmada), Login (sem sessão ou pelo link) |
+| Login | E-mail e senha; envia `POST /login` e guarda o token no armazenamento seguro. | Home |
 | Médicos | Listagem de médicos e formulário de cadastro/edição/exclusão (CRUD). Botão **Sair** no cabeçalho. Tela inicial quando já há sessão. | Login (ao sair ou quando a sessão expira) |
 | Splash *(planejada)* | [a preencher] | Menu |
 | Menu *(planejada)* | [a preencher] | Médicos, Pacientes, Consultas |
@@ -85,8 +86,10 @@ alguns destes itens.
   `react-native-screens`, `react-native-safe-area-context` e `react-native-gesture-handler`
 - `expo-secure-store` — armazenamento seguro do token de sessão (Keychain no iOS,
   Keystore no Android)
+- `expo-local-authentication` — login biométrico: confirma a digital no aparelho para
+  liberar o token já guardado no cofre
 - [a preencher: bibliotecas adicionadas a cada aula — expo-camera/expo-image-picker,
-  expo-local-authentication, expo-location, expo-notifications, expo-task-manager,
+  expo-location, expo-notifications, expo-task-manager,
   react-native-maps, etc.]
 - API RESTful da clínica (mock local via `json-server` durante o desenvolvimento) e API
   de autenticação mock (`servidor/auth-api.js`, Node puro, sem dependências)

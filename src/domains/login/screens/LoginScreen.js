@@ -12,7 +12,7 @@ import { useLogin } from '../hooks/useLogin';
 
 export function LoginScreen({ navigation }) {
   // reset em vez de navigate: o Login sai da pilha e o gesto de voltar não retorna a ele.
-  const irParaHome = () => navigation.reset({ index: 0, routes: [{ name: 'Medicos' }] });
+  const irParaHome = () => navigation.reset({ index: 0, routes: [{ name: 'Home' }] });
   const { email, setEmail, senha, setSenha, entrando, erro, entrar } = useLogin(irParaHome);
 
   return (
