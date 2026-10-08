@@ -8,7 +8,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useConsultas } from "../../consultas/hooks/useConsultas";
 
 
-export function Home() {
+export function Home({ navigation }) {
 
     const { consultas } = useConsultas()
 
@@ -19,7 +19,7 @@ export function Home() {
                 contentContainerStyle={{ paddingBottom: 24 }}
                 showsVerticalScrollIndicator={false}
             >
-                <ProximaConsulta />
+                <ProximaConsulta onDetalhes={() => navigation.navigate('Consulta')} />
                 <AcoesRapias />
                 <Especialidades />
             </ScrollView>

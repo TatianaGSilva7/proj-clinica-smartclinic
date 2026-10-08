@@ -6,6 +6,9 @@ export const MODO_SIMULADO = true;
 const SERVICO_FREQ_CARDIACA = '0000180d-0000-1000-8000-00805f9b34fb';
 const CARACTERISTICA_MEDICAO = '00002a37-0000-1000-8000-00805f9b34fb';
 
+const SERVICO_BATERIA = '0000180f-0000-1000-8000-00805f9b34fb';
+const CARACTERISTICA_BATERIA = '00002a19-0000-1000-8000-00805f9b34fb';
+
 export async function pedirPermissoes() {
   if (Platform.OS !== 'android') return true;
 
@@ -44,6 +47,13 @@ export function decodificarFrequencia(valorBase64) {
   }
 }
 
+export function decodificarBateria(valorBase64) {
+  if (!valorBase64) return null;
+  const bytes = Buffer.from(valorBase64, 'base64');
+  if (bytes.length < 1) return null;
+  return bytes[0];
+}
+
 function criarServicoBleSimulado() {
   let timeouts = [];
   let intervaloMonitoramento = null;
@@ -77,6 +87,13 @@ function criarServicoBleSimulado() {
       }, 1500);
     },
     
+    lerBateria: async () => {
+      // Retorna um valor simulado de bateria (ex: 85%)
+      return new Promise((resolve) => {
+        setTimeout(() => resolve(85), 500);
+      });
+    },
+
     desconectar: () => {
       if (intervaloMonitoramento) {
         clearInterval(intervaloMonitoramento);
@@ -136,6 +153,20 @@ function criarServicoBleReal() {
       );
     },
     
+    lerBateria: async () => {
+      if (!dispositivoConectadoId) return null;
+      try {
+        const caracteristica = await manager.readCharacteristicForDevice(
+          dispositivoConectadoId,
+          SERVICO_BATERIA,
+          CARACTERISTICA_BATERIA
+        );
+        return decodificarBateria(caracteristica.value);
+      } catch (erro) {
+        return null;
+      }
+    },
+
     desconectar: async () => {
       if (subscricaoMonitoramento) {
         subscricaoMonitoramento.remove();
