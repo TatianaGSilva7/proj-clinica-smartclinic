@@ -36,6 +36,8 @@ export default function App() {
             <Stack.Screen name="Home">
               {(props) => <Home {...props} onSair={() => setLogado(false)} />}
             </Stack.Screen>
+            <Stack.Screen name="Consulta" component={require('./src/domains/consultas/screen/ConsultaScreen').ConsultaScreen} />
+            <Stack.Screen name="SinaisVitais" component={require('./src/domains/consultas/screen/SinaisVitais').SinaisVitaisScreen} />
           </>
         ) : (
           <Stack.Screen name="Login">

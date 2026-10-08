@@ -142,5 +142,13 @@
       "horaFim": "17:00"
     }
   ],
+  "sinais-vitais": [
+    {
+      "consultaId": "123",
+      "frequenciaCardiaca": 75,
+      "origem": "manual",
+      "id": "sjDvclnSKpI"
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }
