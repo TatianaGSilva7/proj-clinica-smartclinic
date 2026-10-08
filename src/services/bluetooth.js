@@ -156,3 +156,5 @@ export function criarServicoBle() {
     return criarServicoBleReal();
   }
 }
+
+
