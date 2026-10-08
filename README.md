@@ -114,12 +114,24 @@ npm install
 
 ### Variáveis de configuração
 
-Os endereços das APIs são definidos em `src/api/config.js`:
+Os endereços das APIs vêm de um arquivo `.env` na raiz, que **não vai para o Git**: cada
+integrante tem o seu, com o IP da própria máquina. Para criar o seu, copie o modelo:
 
-```js
-export const BASE_URL = 'http://SEU_IP_AQUI:3000';      // json-server (CRUD)
-export const AUTH_BASE_URL = 'http://SEU_IP_AQUI:3001'; // auth-api (login)
+```bash
+cp .env.example .env   # depois troque SEU_IP pelo seu IP
 ```
+
+```env
+EXPO_PUBLIC_API_URL=http://SEU_IP:3000    # json-server (CRUD)
+EXPO_PUBLIC_AUTH_URL=http://SEU_IP:3001   # auth-api (login)
+```
+
+O `src/api/config.js` lê essas variáveis (sem `.env`, usa `localhost`). Depois de alterar o
+`.env`, reinicie o Expo com `npx expo start --clear`: as variáveis são lidas na geração do
+bundle, não em tempo de execução.
+
+> Variáveis `EXPO_PUBLIC_` são copiadas para dentro do app e **não são segredo**. Servem para
+> endereços como estes; chaves sensíveis (ex.: gateway de SMS) devem ficar num servidor.
 
 Foi decidido pela squad que o json-server roda na porta **3000** e a API de autenticação
 na porta **3001**, para os dois poderem ficar no ar ao mesmo tempo. O login usa o
@@ -169,8 +181,11 @@ a API devolve um **token**, e é ele que acompanha as requisições seguintes.
 src/api/                          ← infraestrutura compartilhada (não conhece nenhum domínio)
 ├── config.js    → BASE_URL (3000) e AUTH_BASE_URL (3001)
 ├── sessao.js    → único acesso ao cofre: salvarToken, obterToken, limparToken, estaLogado
-└── http.js      → único ponto que fala com a rede: requisicao(), get/post/put/remover,
-                   SessaoExpirada
+├── http.js      → único ponto que fala com a API da clínica: requisicao(), get/post/put/remover,
+│                  SessaoExpirada
+└── httpExterno.js → único ponto que fala com serviços de terceiros (ViaCEP, Nominatim...):
+                   buscarExterno(servico, url), ServicoExternoIndisponivel. Sem token,
+                   com timeout (8 s) e User-Agent
 
 src/domains/login/                ← regra de negócio da autenticação
 ├── services/authService.js       → login() (POST /login + salva o token) e logout()

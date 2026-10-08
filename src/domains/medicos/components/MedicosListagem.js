@@ -7,7 +7,7 @@ import {
     Modal,
     Pressable,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 export function MedicosListagem({ visivel, onFechar, medicos = [], titulo = "Médicos" }) {
     return (
@@ -17,44 +17,48 @@ export function MedicosListagem({ visivel, onFechar, medicos = [], titulo = "Mé
             presentationStyle="fullScreen"
             onRequestClose={onFechar} // botão voltar do Android
         >
-            <SafeAreaView style={styles.tela} edges={["top", "left", "right", "bottom"]}>
-                <View style={styles.header}>
-                    <Text style={styles.title}>{titulo}</Text>
-                    <Pressable
-                        onPress={onFechar}
-                        hitSlop={10}
-                        accessibilityRole="button"
-                        accessibilityLabel="Fechar"
-                        style={({ pressed }) => pressed && styles.pressed}
-                    >
-                        <Text style={styles.fechar}>Fechar</Text>
-                    </Pressable>
-                </View>
+            {/* O Modal abre numa janela nativa separada: sem um Provider aqui dentro,
+                o SafeAreaView recebe margens 0 e o conteúdo vai para trás da barra de status. */}
+            <SafeAreaProvider>
+                <SafeAreaView style={styles.tela} edges={["top", "left", "right", "bottom"]}>
+                    <View style={styles.header}>
+                        <Text style={styles.title}>{titulo}</Text>
+                        <Pressable
+                            onPress={onFechar}
+                            hitSlop={10}
+                            accessibilityRole="button"
+                            accessibilityLabel="Fechar"
+                            style={({ pressed }) => pressed && styles.pressed}
+                        >
+                            <Text style={styles.fechar}>Fechar</Text>
+                        </Pressable>
+                    </View>
 
-                <FlatList
-                    data={medicos}
-                    keyExtractor={(item) => String(item.id)}
-                    contentContainerStyle={styles.lista}
-                    ItemSeparatorComponent={() => <View style={styles.separador} />}
-                    renderItem={({ item }) => (
-                        <View style={styles.card}>
-                            <View style={styles.avatar}>
-                                <Text style={styles.avatarTexto}>
-                                    {item.nome?.charAt(0).toUpperCase()}
-                                </Text>
+                    <FlatList
+                        data={medicos}
+                        keyExtractor={(item) => String(item.id)}
+                        contentContainerStyle={styles.lista}
+                        ItemSeparatorComponent={() => <View style={styles.separador} />}
+                        renderItem={({ item }) => (
+                            <View style={styles.card}>
+                                <View style={styles.avatar}>
+                                    <Text style={styles.avatarTexto}>
+                                        {item.nome?.charAt(0).toUpperCase()}
+                                    </Text>
+                                </View>
+                                <View style={styles.info}>
+                                    <Text style={styles.nome}>{item.nome}</Text>
+                                    <Text style={styles.especialidade}>{item.especialidade}</Text>
+                                    <Text style={styles.crm}>CRM: {item.crm}</Text>
+                                </View>
                             </View>
-                            <View style={styles.info}>
-                                <Text style={styles.nome}>{item.nome}</Text>
-                                <Text style={styles.especialidade}>{item.especialidade}</Text>
-                                <Text style={styles.crm}>CRM: {item.crm}</Text>
-                            </View>
-                        </View>
-                    )}
-                    ListEmptyComponent={
-                        <Text style={styles.vazio}>Nenhum médico encontrado.</Text>
-                    }
-                />
-            </SafeAreaView>
+                        )}
+                        ListEmptyComponent={
+                            <Text style={styles.vazio}>Nenhum médico encontrado.</Text>
+                        }
+                    />
+                </SafeAreaView>
+            </SafeAreaProvider>
         </Modal>
     );
 }
