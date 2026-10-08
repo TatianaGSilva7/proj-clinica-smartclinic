@@ -23,7 +23,13 @@
     "plugins": [
       "expo-font",
       "expo-secure-store",
-      "expo-status-bar"
+      "expo-status-bar",
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Permitir que o SmartClinic use o Face ID para liberar sua sessão."
+        }
+      ]
     ]
   }
 }
