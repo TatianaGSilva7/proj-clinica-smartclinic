@@ -29,7 +29,7 @@
         {
           "faceIDPermission": "Permitir que o SmartClinic use o Face ID para liberar sua sessão."
         }
-      ]
+      ],
       "react-native-ble-plx"
     ]
   }

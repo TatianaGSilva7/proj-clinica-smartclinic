@@ -21,10 +21,8 @@ export function Home({ navigation }) {
                 contentContainerStyle={{ paddingBottom: 24 }}
                 showsVerticalScrollIndicator={false}
             >
-                <ProximaConsulta />
-                <AcoesRapias onUnits={() => setVerUnidades(true)} />
                 <ProximaConsulta onDetalhes={() => navigation.navigate('Consulta')} />
-                <AcoesRapias />
+                <AcoesRapias onUnits={() => setVerUnidades(true)} />
                 <Especialidades />
             </ScrollView>
             <UnidadesProximas visivel={verUnidades} onFechar={() => setVerUnidades(false)} />

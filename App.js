@@ -6,6 +6,8 @@ import { LoginScreen } from './src/domains/login/screens/LoginScreen';
 import { LoginBiometrico } from './src/domains/login/screens/LoginBiometrico';
 import { BotaoSair } from './src/domains/login/components/BotaoSair';
 import { Home } from './src/domains/home/screen/Home';
+import { ConsultaScreen } from './src/domains/consultas/screen/ConsultaScreen';
+import { SinaisVitaisScreen } from './src/domains/consultas/screen/SinaisVitais';
 
 const Stack = createStackNavigator();
 
@@ -25,23 +27,8 @@ export default function App() {
           component={MedicosScreen}
           options={{ headerShown: true, title: 'Médicos', headerRight: () => <BotaoSair /> }}
         />
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        {logado ? (
-          <>
-            <Stack.Screen name="Home">
-              {(props) => <Home {...props} onSair={() => setLogado(false)} />}
-            </Stack.Screen>
-            <Stack.Screen name="Consulta" component={require('./src/domains/consultas/screen/ConsultaScreen').ConsultaScreen} />
-            <Stack.Screen name="SinaisVitais" component={require('./src/domains/consultas/screen/SinaisVitais').SinaisVitaisScreen} />
-          </>
-        ) : (
-          <Stack.Screen name="Login">
-            {(props) =>  <Home {...props} onSair={() => setLogado(false)} />}
-          </Stack.Screen>
-          // <Stack.Screen name="Login">
-          //   {(props) => <LoginScreen {...props} onLogin={() => setLogado(true)} />}
-          // </Stack.Screen>
-        )}
+        <Stack.Screen name="Consulta" component={ConsultaScreen} />
+        <Stack.Screen name="SinaisVitais" component={SinaisVitaisScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
