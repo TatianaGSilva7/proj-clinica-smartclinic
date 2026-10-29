@@ -1,5 +1,6 @@
 import { AUTH_BASE_URL } from '../../../api/config';
 import { salvarToken, limparToken } from '../../../api/sessao';
+import { cancelarTodas } from '../../../services/notificacoes';
 
 // =======================================================================
 // LOGIN — POST /login e guarda o token no cofre
@@ -32,4 +33,5 @@ export async function login(email, senha) {
 // =======================================================================
 export async function logout() {
   await limparToken();
+  await cancelarTodas().catch(() => {});
 }

@@ -8,6 +8,11 @@ import { BotaoSair } from './src/domains/login/components/BotaoSair';
 import { Home } from './src/domains/home/screen/Home';
 import { ConsultaScreen } from './src/domains/consultas/screen/ConsultaScreen';
 import { SinaisVitaisScreen } from './src/domains/consultas/screen/SinaisVitais';
+import { configurarNotificacoes } from './src/services/notificacoes';
+
+// Uma vez, antes de qualquer tela: sem isso o lembrete que dispara com o app
+// aberto não aparece e o canal Android não existe.
+configurarNotificacoes();
 
 const Stack = createStackNavigator();
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import { Especialidades } from "../components/Especialidades";
 import { AcoesRapias } from "../components/AcoesRapidas";
@@ -7,12 +7,17 @@ import { ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useConsultas } from "../../consultas/hooks/useConsultas";
 import { UnidadesProximas } from "../../clinica/components/UnidadesProximas";
+import { pedirPermissao } from "../../../services/notificacoes";
 
 
 export function Home({ navigation }) {
 
     const { consultas } = useConsultas()
     const [verUnidades, setVerUnidades] = useState(false);
+
+    // Pede na primeira entrada após o login; nas próximas só confere.
+    // Se negar, o app segue normal, apenas sem lembretes.
+    useEffect(() => { pedirPermissao(); }, []);
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: "#FFFFFF" }} edges={["top", "left", "right"]}>
