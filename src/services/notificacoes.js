@@ -1,18 +1,11 @@
 import { Platform } from 'react-native';
 
-// Notificações LOCAIS: lembretes agendados no próprio aparelho, sem servidor.
-// Este arquivo só sabe "agendar/cancelar notificação"; a regra de QUANDO
-// lembrar de uma consulta fica no domínio de consultas.
-//
-// Na web o agendamento não existe: todas as funções viram no-op e o módulo
-// nativo nem é carregado (mesma ideia do require tardio do bluetooth.js).
+
 const SUPORTADO = Platform.OS !== 'web';
 const Notifications = SUPORTADO ? require('expo-notifications') : null;
 
 export const CANAL_LEMBRETES = 'lembretes';
 
-// Android 8+ exige um canal; no Android 13+ ele precisa existir ANTES de pedir
-// a permissão, senão o sistema nem mostra o pedido.
 async function criarCanal() {
   if (Platform.OS !== 'android') return;
   await Notifications.setNotificationChannelAsync(CANAL_LEMBRETES, {
@@ -21,8 +14,6 @@ async function criarCanal() {
   });
 }
 
-// Chamar uma vez na abertura do app. Sem o handler, uma notificação que
-// dispara com o app aberto é descartada em silêncio.
 export async function configurarNotificacoes() {
   if (!SUPORTADO) return;
   Notifications.setNotificationHandler({
@@ -36,8 +27,6 @@ export async function configurarNotificacoes() {
   await criarCanal();
 }
 
-// Devolve true/false e nunca lança: negar a permissão não pode quebrar o app,
-// ele só deixa de lembrar das consultas.
 export async function pedirPermissao() {
   if (!SUPORTADO) return false;
   try {
@@ -53,9 +42,6 @@ export async function pedirPermissao() {
   }
 }
 
-// Agenda para uma data. O `id` é escolhido por quem chama: reagendar com o
-// mesmo id substitui o anterior em vez de duplicar.
-// Retorna o id agendado, ou null se a data já passou (ou se for web).
 export async function agendar({ id, titulo, corpo, data, dados = {} }) {
   if (!SUPORTADO) return null;
   const quando = new Date(data);
