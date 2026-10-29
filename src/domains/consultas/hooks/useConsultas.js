@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { SessaoExpirada } from "../../../api/http";
 import { buscarConsultas as buscarConsultasApi  } from "../services/consultasService";
+import { sincronizarLembretes } from "../services/lembretesService";
 
 export function useConsultas() {
     const [consultas, setConsultas] = useState([]);
@@ -14,8 +15,11 @@ export function useConsultas() {
         setErro(null);
         try {
             const dados = await buscarConsultasApi();
-            console.log(dados)
             setConsultas(dados);
+            // Sem await: lembrete é extra, a tela não espera nem quebra se falhar.
+            sincronizarLembretes(dados).catch((e) =>
+                console.log("Não foi possível agendar lembretes:", e.message)
+            );
         } catch (e) {
                 console.log("ERRO consultas:", e.name, e.message);
 
